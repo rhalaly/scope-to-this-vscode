@@ -90,7 +90,7 @@ function createExcludeList(path: string) {
     dirs.forEach((dir, dirI) => {
         const dirsSoFar = dirs.slice(0, dirI).join('/') + (dirI > 0 ? '/' : '');
         for (let i = 0; i < dir.length; i++) {
-            excludes.push(`${dirsSoFar}${dir.slice(0, i)}[!${dir[i]}]${i === dir.length - 1 ? '' : '*'}/**`);
+            excludes.push(`${dirsSoFar}${dir.slice(0, i)}[!${dir[i]}]*/**`);
         }
     });
 
