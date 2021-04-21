@@ -1,91 +1,91 @@
 {
-    "name": "scope-to-this",
-    "displayName": "Scope to This",
-    "description": "Adds Scope to This feature to the explorer context menu. Lets you focus on the things that matter",
-    "publisher": "rhalaly",
-    "version": "0.1.0",
-    "license": "MIT",
-    "icon": "resources/icon.png",
-    "galleryBanner": {
-        "color": "#1e1e1e",
-        "theme": "dark"
-    },
-    "engines": {
-        "vscode": "^1.55.0"
-    },
-    "categories": [
-        "Other"
+  "name": "scope-to-this",
+  "displayName": "Scope to This",
+  "description": "Adds Scope to This feature to the explorer context menu. Lets you focus on the things that matter",
+  "publisher": "rhalaly",
+  "version": "0.1.1",
+  "license": "MIT",
+  "icon": "resources/icon.png",
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.55.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "scope",
+    "directories",
+    "folders",
+    "show",
+    "hide",
+    "hidden",
+    "ignore",
+    "explorer",
+    "workspace"
+  ],
+  "main": "./out/extension.js",
+  "homepage": "https://github.com/rhalaly/scope-to-this-vscode/blob/master/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rhalaly/scope-to-this-vscode"
+  },
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:fileExplorer",
+    "onCommand:scope-to-this.scope",
+    "onCommand:scope-to-this.clear"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "scope-to-this.scope",
+        "title": "Scope to This"
+      },
+      {
+        "command": "scope-to-this.clear",
+        "title": "Clear Scope"
+      }
     ],
-    "keywords": [
-        "scope",
-        "directories",
-        "folders",
-        "show",
-        "hide",
-        "hidden",
-        "ignore",
-        "explorer",
-        "workspace"
-    ],
-    "main": "./out/extension.js",
-    "homepage": "https://github.com/rhalaly/scope-to-this-vscode/blob/master/README.md",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/rhalaly/scope-to-this-vscode"
-    },
-    "activationEvents": [
-        "onStartupFinished",
-        "onView:fileExplorer",
-        "onCommand:scope-to-this.scope",
-        "onCommand:scope-to-this.clear"
-    ],
-    "contributes": {
-        "commands": [
-            {
-                "command": "scope-to-this.scope",
-                "title": "Scope to This"
-            },
-            {
-                "command": "scope-to-this.clear",
-                "title": "Clear Scope"
-            }
-        ],
-        "menus": {
-            "explorer/context": [
-                {
-                    "command": "scope-to-this.scope",
-                    "group": "2_workspace@1",
-                    "when": "activeViewlet == 'workbench.view.explorer' && explorerResourceIsFolder && !scopeToThis.scoped"
-                },
-                {
-                    "command": "scope-to-this.clear",
-                    "group": "2_workspace@2",
-                    "when": "activeViewlet == 'workbench.view.explorer' && explorerResourceIsFolder && scopeToThis.scoped"
-                }
-            ]
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "scope-to-this.scope",
+          "group": "2_workspace@1",
+          "when": "activeViewlet == 'workbench.view.explorer' && explorerResourceIsFolder && !scopeToThis.scoped"
+        },
+        {
+          "command": "scope-to-this.clear",
+          "group": "2_workspace@2",
+          "when": "activeViewlet == 'workbench.view.explorer' && explorerResourceIsFolder && scopeToThis.scoped"
         }
-    },
-    "scripts": {
-        "vscode:prepublish": "yarn run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
-        "pretest": "yarn run compile && yarn run lint",
-        "lint": "eslint src --ext ts",
-        "test": "node ./out/test/runTest.js",
-        "deploy": "vsce publish --yarn"
-    },
-    "devDependencies": {
-        "@types/glob": "^7.1.3",
-        "@types/mocha": "^8.0.4",
-        "@types/node": "^12.11.7",
-        "@types/vscode": "^1.55.0",
-        "@typescript-eslint/eslint-plugin": "^4.14.1",
-        "@typescript-eslint/parser": "^4.14.1",
-        "eslint": "^7.19.0",
-        "glob": "^7.1.6",
-        "mocha": "^8.2.1",
-        "typescript": "^4.1.3",
-        "vsce": "^1.87.1",
-        "vscode-test": "^1.5.0"
+      ]
     }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "deploy": "vsce publish --yarn"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.55.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
+    "eslint": "^7.19.0",
+    "glob": "^7.1.6",
+    "mocha": "^8.2.1",
+    "typescript": "^4.1.3",
+    "vsce": "^1.87.1",
+    "vscode-test": "^1.5.0"
+  }
 }
