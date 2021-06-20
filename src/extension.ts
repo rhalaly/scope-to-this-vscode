@@ -13,7 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with registerCommand
     // The commandId parameter must match the command field in package.json
-    let scope = vscode.commands.registerCommand('scope-to-this.scope', (path: vscode.Uri) => {
+    let scope = vscode.commands.registerCommand('scope-to-this.scope', async (path: vscode.Uri) => {
         // The code you place here will be executed every time your command is executed
 
         if (!path) {
@@ -21,16 +21,17 @@ export function activate(context: vscode.ExtensionContext) {
             return;
         }
 
-        utils.scopeToThis(path);
+        await utils.clearScope();
+        await utils.scopeToThis(path);
     });
 
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with registerCommand
     // The commandId parameter must match the command field in package.json
-    let clear = vscode.commands.registerCommand('scope-to-this.clear', () => {
+    let clear = vscode.commands.registerCommand('scope-to-this.clear', async () => {
         // The code you place here will be executed every time your command is executed
 
-        utils.clearScope();
+        await utils.clearScope();
     });
 
     context.subscriptions.push(scope);

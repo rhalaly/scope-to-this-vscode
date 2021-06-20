@@ -2,11 +2,12 @@
 
 Adds "Scope to This" option to the Explorer context menu, like in Visual Studio. Lets you focus on the things that matter.
 
-![screenshot](https://raw.githubusercontent.com/rhalaly/scope-to-this-vscode/master/resources/demo.gif)
+<img src="https://raw.githubusercontent.com/rhalaly/scope-to-this-vscode/master/resources/demo.gif" width="400">
 
 ## Features ✨
 * Adds "Scope to This" option to the Explorer context menu to scope the selected directory.
-* Adds "Clear scope" option to the Explorer context menu (also available as a command `scope-to-this.clear`) To return to the root of the project.
+* Adds "Clear scope" option to the Folders view as an shortcut icon (also available as a command `scope-to-this.clear`) to clear the filter and return to the project's root folder.  
+![clear-shortcut](https://raw.githubusercontent.com/rhalaly/scope-to-this-vscode/master/resources/clear-shortcut.png)
 
 ## Known Issues 🐛
 

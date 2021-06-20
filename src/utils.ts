@@ -18,7 +18,7 @@ export function initContext(context: vscode.ExtensionContext) {
     }
 }
 
-export function scopeToThis(path: vscode.Uri) {
+export async function scopeToThis(path: vscode.Uri) {
     try {
         const relative = getRelativePath(path);
 
@@ -29,12 +29,10 @@ export function scopeToThis(path: vscode.Uri) {
 
             paths.forEach(path => excludes[path] = true);
 
-            const res = updateExcludes(excludes);
+            await updateExcludes(excludes);
 
-            res?.then(() => {
-                vscodeContext?.workspaceState.update(KEY_CURRENT_SCOPE, relative);
-                vscode.commands.executeCommand('setContext', CONTEXT_IS_SCOPED, true);
-            }, (err) => vscode.window.showErrorMessage(err));
+            vscodeContext?.workspaceState.update(KEY_CURRENT_SCOPE, relative);
+            vscode.commands.executeCommand('setContext', CONTEXT_IS_SCOPED, true);
         } else {
             vscode.window.showErrorMessage("Error in reading vscode settings.");
         }
@@ -44,7 +42,7 @@ export function scopeToThis(path: vscode.Uri) {
     }
 }
 
-export function clearScope() {
+export async function clearScope() {
     try {
         const scope = vscodeContext?.workspaceState.get(KEY_CURRENT_SCOPE, undefined);
         if (scope) {
@@ -54,12 +52,10 @@ export function clearScope() {
 
                 paths.forEach(path => delete excludes[path]);
 
-                const res = updateExcludes(excludes);
+                await updateExcludes(excludes);
 
-                res?.then(() => {
-                    vscodeContext?.workspaceState.update(KEY_CURRENT_SCOPE, undefined);
-                    vscode.commands.executeCommand('setContext', CONTEXT_IS_SCOPED, false);
-                }, (err) => vscode.window.showErrorMessage(err));
+                vscodeContext?.workspaceState.update(KEY_CURRENT_SCOPE, undefined);
+                vscode.commands.executeCommand('setContext', CONTEXT_IS_SCOPED, false);
             } else {
                 vscode.window.showErrorMessage("Error in reading vscode settings.");
             }
@@ -111,19 +107,15 @@ function getExcludes() {
     }
 }
 
-function updateExcludes(excludes: ExcludeObject) {
-    if (!workspaceFolders || !workspaceFolders.length) {
-        return;
-    }
-
-    try {
-        const config = vscode.workspace.getConfiguration('files', null);
-
-        let target = vscode.ConfigurationTarget.Workspace || null;
-
-        return config.update('exclude', excludes, target);
-    }
-    catch (error) {
-        vscode.window.showErrorMessage(error.message || error);
+async function updateExcludes(excludes: ExcludeObject) {
+    if (workspaceFolders && workspaceFolders.length > 0) {
+        try {
+            const config = vscode.workspace.getConfiguration('files', null);
+            const target = vscode.ConfigurationTarget.Workspace || null;
+            return await config.update('exclude', excludes, target);
+        }
+        catch (error) {
+            vscode.window.showErrorMessage(error.message || error);
+        }
     }
 }

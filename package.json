@@ -47,20 +47,23 @@
       },
       {
         "command": "scope-to-this.clear",
-        "title": "Clear Scope"
+        "title": "Clear Scope",
+        "icon": "$(search-stop)"
       }
     ],
     "menus": {
+      "view/title": [
+        {
+          "command": "scope-to-this.clear",
+          "group": "navigation",
+          "when": "view == 'workbench.explorer.fileView' && scopeToThis.scoped"
+        }
+      ],
       "explorer/context": [
         {
           "command": "scope-to-this.scope",
           "group": "2_workspace@1",
-          "when": "activeViewlet == 'workbench.view.explorer' && explorerResourceIsFolder && !scopeToThis.scoped"
-        },
-        {
-          "command": "scope-to-this.clear",
-          "group": "2_workspace@2",
-          "when": "activeViewlet == 'workbench.view.explorer' && explorerResourceIsFolder && scopeToThis.scoped"
+          "when": "activeViewlet == 'workbench.view.explorer' && explorerResourceIsFolder"
         }
       ]
     }
