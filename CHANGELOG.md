@@ -1,3 +1,12 @@
+# [0.2.0](https://github.com/rhalaly/scope-to-this-vscode/compare/v0.1.1...v0.2.0) (2021-06-20)
+
+
+### Features
+
+* ✨ Simplify the clear scope ([4b3c592](https://github.com/rhalaly/scope-to-this-vscode/commit/4b3c592742472cc533e8fdb63603a5fb70d75c16))
+
+
+
 ## [0.1.1](https://github.com/rhalaly/scope-to-this-vscode/compare/v0.1.0...v0.1.1) (2021-04-21)
 
 

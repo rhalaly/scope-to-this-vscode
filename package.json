@@ -3,7 +3,7 @@
   "displayName": "Scope to This",
   "description": "Adds Scope to This feature to the explorer context menu. Lets you focus on the things that matter",
   "publisher": "rhalaly",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "license": "MIT",
   "icon": "resources/icon.png",
   "galleryBanner": {
