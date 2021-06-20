@@ -1,9 +1,6 @@
 name: "Release"
 
-on:
-  push:
-    branches:
-      - main
+on: workflow_dispatch
 
 jobs:
   bump-version:
@@ -22,7 +19,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
         
-      - name: Create changelog
+      - name: Create Changelog
         id: changelog
         uses: TriPSs/conventional-changelog-action@v3
         with:
@@ -30,11 +27,10 @@ jobs:
           release-count: 0
 
       - name: Create Release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.changelog.outputs.tag }}
-          release_name: ${{ steps.changelog.outputs.tag }}
-          body: ${{ steps.changelog.outputs.clean_changelog }}
+          name: ${{ steps.changelog.outputs.tag }}
