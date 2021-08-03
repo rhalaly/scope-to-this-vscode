@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-type ExcludeObject = { [key: string]: boolean };
+type ExcludeObject = { [key: string]: any };
 
 const KEY_CURRENT_SCOPE = 'scopeToThis.currentScope';
 const CONTEXT_IS_SCOPED = 'scopeToThis.scoped';
@@ -50,7 +50,11 @@ export async function clearScope() {
             if (excludes) {
                 const paths = createExcludeList(scope);
 
-                paths.forEach(path => delete excludes[path]);
+                paths.forEach(path => {
+                    if (path && excludes.hasOwnProperty(path)) {
+                        excludes[path] = undefined;
+                    }
+                });
 
                 await updateExcludes(excludes);
 
@@ -100,7 +104,7 @@ function getExcludes() {
 
     try {
         const config = vscode.workspace.getConfiguration('files', null);
-        return Object.assign({}, config.get<ExcludeObject>('exclude', {}));
+        return config.get<ExcludeObject>('exclude', {});
     }
     catch (error) {
         vscode.window.showErrorMessage(error.message || error);
