@@ -1,3 +1,12 @@
+## [0.2.1](https://github.com/rhalaly/scope-to-this-vscode/compare/v0.2.0...v0.2.1) (2021-08-03)
+
+
+### Bug Fixes
+
+* keep complex exclude entries ([c958f8b](https://github.com/rhalaly/scope-to-this-vscode/commit/c958f8b03148eb4541412b0e4a9639c60b230943))
+
+
+
 # [0.2.0](https://github.com/rhalaly/scope-to-this-vscode/compare/v0.1.1...v0.2.0) (2021-06-20)
 
 
