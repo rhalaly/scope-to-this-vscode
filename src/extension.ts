@@ -1,42 +1,45 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-
 import * as utils from './utils';
+import { ScopesNodeManager } from './nodeScopes';
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+	const rootPath =
+		vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0
+			? vscode.workspace.workspaceFolders[0].uri.fsPath
+			: undefined;
+	utils.initContext(context);
+	const scopesNodeManger = new ScopesNodeManager(rootPath);
 
-    utils.initContext(context);
+	const scope = vscode.commands.registerCommand('scope-to-this.scope', async (_path: vscode.Uri) => {
+		if (!_path) {
+			vscode.window.showInformationMessage('Use this command from the Explorer context menu.');
+			return;
+		}
+		await utils.clearScope();
+		await utils.scopeToThis(_path);
+	});
 
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with registerCommand
-    // The commandId parameter must match the command field in package.json
-    let scope = vscode.commands.registerCommand('scope-to-this.scope', async (path: vscode.Uri) => {
-        // The code you place here will be executed every time your command is executed
+	const clear = vscode.commands.registerCommand('scope-to-this.clear', async () => {
+		await utils.clearScope();
+	});
 
-        if (!path) {
-            vscode.window.showInformationMessage("Use this command from the Explorer context menu.");
-            return;
-        }
+	const addScope = vscode.commands.registerCommand('scopes-manager.add', async (_path: vscode.Uri) => {
+		scopesNodeManger.addToScopes(_path);
+		scopesNodeManger.refresh();
+	});
 
-        await utils.clearScope();
-        await utils.scopeToThis(path);
-    });
+	const removeScope = vscode.commands.registerCommand('scopes-manager.remove', async (label: string) => {
+		scopesNodeManger.removeFromScopes(label);
+		scopesNodeManger.refresh();
+	});
 
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with registerCommand
-    // The commandId parameter must match the command field in package.json
-    let clear = vscode.commands.registerCommand('scope-to-this.clear', async () => {
-        // The code you place here will be executed every time your command is executed
+	vscode.window.registerTreeDataProvider('scoopes', scopesNodeManger);
 
-        await utils.clearScope();
-    });
-
-    context.subscriptions.push(scope);
-    context.subscriptions.push(clear);
+	context.subscriptions.push(scope);
+	context.subscriptions.push(clear);
+	context.subscriptions.push(addScope);
+	context.subscriptions.push(removeScope);
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() { }
+export function deactivate() {}
