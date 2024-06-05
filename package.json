@@ -75,7 +75,8 @@
     "pretest": "yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "deploy": "vsce publish --yarn"
+    "vscode:publish": "vsce publish --yarn",
+    "ovsx:publish": "ovsx publish --yarn"
   },
   "devDependencies": {
     "@types/glob": "^7.1.3",
@@ -87,6 +88,7 @@
     "eslint": "^7.19.0",
     "glob": "^7.1.6",
     "mocha": "^8.2.1",
+    "ovsx": "0.9.1",
     "typescript": "^4.1.3",
     "vsce": "^1.87.1",
     "vscode-test": "^1.5.0"
